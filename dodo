@@ -1,0 +1,33 @@
+#!/bin/sh
+
+argcount=2
+usage="interval_in_seconds command"
+test "$#" -ge "${argcount}" || { echo "$0 ${usage}" > /dev/stderr && exit 1 ; } #"-ge=>=" "-gt=>" "-le=<=" "-lt=<" "-ne=!="
+
+seconds="${1}"
+shift
+
+set -o nounset
+
+random="0"
+
+if [ "${seconds}" == "--random" ];
+then
+    random="1"
+    #seconds=`shuf -i 1-100 -n 1`
+    #echo "${seconds}" > /dev/stderr
+fi
+
+
+while `/bin/true`;
+do
+    if [ "${random}" == "1" ];
+    then
+        seconds=`shuf -i 1-100 -n 1`
+        #echo "random: ${seconds}" > /dev/stderr
+    fi
+    #echo "${seconds}" > /dev/stderr
+    sleep "${seconds}" || exit 1
+    "${@}"
+    #seconds=`shuf -i 1-100 -n 1`
+done
