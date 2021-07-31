@@ -19,7 +19,7 @@ then
 fi
 
 
-while `/bin/true`;
+while :
 do
     if [ "${random}" == "1" ];
     then
