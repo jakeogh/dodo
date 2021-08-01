@@ -1,11 +1,21 @@
 #!/bin/sh
 
-argcount=2
+is_interger()
+{
+    echo "${1}" | grep -q "^-\?[0-9]*$"
+}
+
+argcount=1
 usage="interval_in_seconds command"
 test "$#" -ge "${argcount}" || { echo "$0 ${usage}" > /dev/stderr && exit 1 ; } #"-ge=>=" "-gt=>" "-le=<=" "-lt=<" "-ne=!="
 
-seconds="${1}"
-shift
+if is_interger "${1}";
+then
+    seconds="${1}"
+    shift
+else
+    seconds=1   # default
+fi
 
 set -o nounset
 
