@@ -11,8 +11,10 @@ if len(sys.argv) < 2:
     print(sys.argv[0], '[interval_in_seconds]', 'command')
     sys.exit(1)
 
+index = 1
 try:
     delay = Decimal(sys.argv[1])
+    index = 2
 except IndexError:
     assert False
 except InvalidOperation as e:
@@ -22,7 +24,7 @@ except InvalidOperation as e:
 
 ic(delay, sys.argv)
 while True:
-    os.system(' '.join(sys.argv[1:]))
+    os.system(' '.join(sys.argv[index:]))
     time.sleep(float(delay))
 
 ##!/bin/sh
