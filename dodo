@@ -1,15 +1,16 @@
 #!/bin/sh
 
-is_interger()
+is_number()
 {
-    echo "${1}" | grep -q "^-\?[0-9]*$"
+    #echo "${1}" | grep -q "^-\?[0-9]*$"
+    echo "${1}" | grep -q "^[0-9]+([.][0-9]+)?$"
 }
 
 argcount=1
 usage="interval_in_seconds command"
 test "$#" -ge "${argcount}" || { echo "$0 ${usage}" > /dev/stderr && exit 1 ; } #"-ge=>=" "-gt=>" "-le=<=" "-lt=<" "-ne=!="
 
-if is_interger "${1}";
+if is_number "${1}";
 then
     seconds="${1}"
     shift
