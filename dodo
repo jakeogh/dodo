@@ -17,7 +17,8 @@ except InvalidOperation:
     delay = 1
 
 ic(delay, sys.argv)
-
+while True:
+    os.system(' '.join(sys.argv[1:], shell=True)
 
 ##!/bin/sh
 #
