@@ -2,6 +2,7 @@
 
 import sys
 from decimal import Decimal
+from decimal import InvalidOperation
 from asserttool import ic
 
 if len(sys.argv) < 2:
@@ -12,6 +13,8 @@ try:
     delay = Decimal(sys.argv[1])
 except IndexError:
     assert False
+except InvalidOperation:
+    delay = 1
 
 ic(delay, sys.argv)
 
