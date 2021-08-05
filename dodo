@@ -32,6 +32,7 @@ fi
 
 while :
 do
+    "${@}"
     if [ "${random}" == "1" ];
     then
         seconds=`shuf -i 1-100 -n 1`
@@ -39,6 +40,6 @@ do
     fi
     #echo "${seconds}" > /dev/stderr
     sleep "${seconds}" || exit 1
-    "${@}"
+    #"${@}"  # before, so it starts without delay
     #seconds=`shuf -i 1-100 -n 1`
 done
