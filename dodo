@@ -4,6 +4,10 @@ import sys
 from decimal import Decimal
 from asserttool import ic
 
+if len(sys.argv) > 2:
+    print(sys.argv[0], '[interval_in_seconds]', 'command')
+    sys.exit(1)
+
 delay = Decimal(sys.argv[1])
 
 ic(delay, sys.argv)
