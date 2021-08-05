@@ -5,7 +5,7 @@ import sys
 import time
 from decimal import Decimal
 from decimal import InvalidOperation
-from asserttool import ic
+#from asserttool import ic
 
 if len(sys.argv) < 2:
     print(sys.argv[0], '[interval_in_seconds]', 'command')
@@ -18,11 +18,9 @@ try:
 except IndexError:
     assert False
 except InvalidOperation as e:
-    ic(e)
     delay = 1
     sys.exit(1)
 
-ic(delay, sys.argv)
 while True:
     os.system(' '.join(sys.argv[index:]))
     time.sleep(float(delay))
