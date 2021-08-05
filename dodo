@@ -4,11 +4,14 @@ import sys
 from decimal import Decimal
 from asserttool import ic
 
-if len(sys.argv) > 2:
+if len(sys.argv) < 2:
     print(sys.argv[0], '[interval_in_seconds]', 'command')
     sys.exit(1)
 
-delay = Decimal(sys.argv[1])
+try:
+    delay = Decimal(sys.argv[1])
+except IndexError:
+    assert False
 
 ic(delay, sys.argv)
 
