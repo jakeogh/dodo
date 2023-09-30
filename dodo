@@ -3,27 +3,33 @@
 
 # pylint: disable=invalid-name                    # [C0103] single letter var names, name too descriptive
 from __future__ import annotations
-
-import os
 import sys
+import logging
 import time
+from asserttool import ic
 from decimal import Decimal
-from decimal import InvalidOperation
+import sh
+#from decimal import InvalidOperation
+#from eprint import eprint
+#from shlex import quote
+#import os
+logging.basicConfig(level=logging.INFO)
 
 if len(sys.argv) < 2:
     print(sys.argv[0], '[interval_in_seconds]', 'command', file=sys.stderr)
     sys.exit(1)
 
-index = 1
-try:
-    delay = Decimal(sys.argv[1])
-    index = 2
-except IndexError:
-    assert False
-except InvalidOperation:
-    delay = Decimal(1)
-    sys.exit(1)
+delay = Decimal(sys.argv[1])
 
 while True:
-    os.system(' '.join(sys.argv[index:]))
+    _program = sys.argv[2]
+    ic(_program)
+    _program_path = sh.which(_program).strip()
+    ic(_program_path)
+
+    _command = sh.Command(_program_path)
+    for _arg in sys.argv[3:]:
+        _command = _command.bake(_arg)
+
+    _command(_fg=True)
     time.sleep(float(delay))
