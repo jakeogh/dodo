@@ -19,6 +19,10 @@ if len(sys.argv) < 2:
     print(sys.argv[0], '[interval_in_seconds]', 'command', file=sys.stderr)
     sys.exit(1)
 
+ignore_exit_code = False
+if sys.argv[0] == "dodo-force":
+    ignore_exit_code = True
+
 delay = Decimal(sys.argv[1])
 
 while True:
@@ -31,5 +35,8 @@ while True:
     for _arg in sys.argv[3:]:
         _command = _command.bake(_arg)
 
-    _command(_fg=True)
+    if ignore_exit_code:
+        _command(_fg=True, _ok_code=list(range(255)))
+    else:
+        _command(_fg=True)
     time.sleep(float(delay))
