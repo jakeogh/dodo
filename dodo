@@ -9,14 +9,10 @@ import time
 from asserttool import ic
 from decimal import Decimal
 import sh
-#from decimal import InvalidOperation
-#from eprint import eprint
-#from shlex import quote
-#import os
 logging.basicConfig(level=logging.INFO)
 
-if len(sys.argv) < 2:
-    print(sys.argv[0], '[interval_in_seconds]', 'command', file=sys.stderr)
+if len(sys.argv) < 3:
+    print(sys.argv[0], '[interval_in_seconds]', ['count'], 'command', file=sys.stderr)
     sys.exit(1)
 
 ignore_exit_code = False
@@ -24,8 +20,9 @@ if sys.argv[0] == "dodo-force":
     ignore_exit_code = True
 
 delay = Decimal(sys.argv[1])
-
+i = 0
 while True:
+    i += 1
     _program = sys.argv[2]
     ic(_program)
     _program_path = sh.which(_program).strip()
@@ -40,3 +37,5 @@ while True:
     else:
         _command(_fg=True)
     time.sleep(float(delay))
+    if i == count:
+        break
