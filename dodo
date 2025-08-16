@@ -20,16 +20,18 @@ if sys.argv[0] == "dodo-force":
     ignore_exit_code = True
 
 delay = Decimal(sys.argv[1])
+count = Decimal(sys.argv[2])
+
 i = 0
 while True:
     i += 1
-    _program = sys.argv[2]
+    _program = sys.argv[3]
     ic(_program)
     _program_path = sh.which(_program).strip()
     ic(_program_path)
 
     _command = sh.Command(_program_path)
-    for _arg in sys.argv[3:]:
+    for _arg in sys.argv[4:]:
         _command = _command.bake(_arg)
 
     if ignore_exit_code:
