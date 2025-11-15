@@ -2,16 +2,13 @@
 
 from __future__ import annotations
 
-import logging
 import os
 import sys
 import time
 from decimal import Decimal
 
 import hs
-from asserttool import ic
 
-logging.basicConfig(level=logging.INFO)
 
 if len(sys.argv) < 4:
     print(
@@ -29,9 +26,7 @@ i = 0
 while True:
     i += 1
     _program = sys.argv[3]
-    ic(_program)
     _program_path = hs.Command("which")(_program).strip()
-    ic(_program_path)
 
     _command = hs.Command(_program_path)
     for _arg in sys.argv[4:]:
