@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
-# -*- coding: utf8 -*-
 
 from __future__ import annotations
+
+import logging
 import os
 import sys
-import logging
 import time
-from asserttool import ic
 from decimal import Decimal
+
 import hs
+from asserttool import ic
+
 logging.basicConfig(level=logging.INFO)
 
-if len(sys.argv) < 3:
-    print(sys.argv[0], '<interval_in_seconds>', '<count>', 'command', file=sys.stderr)
+if len(sys.argv) < 4:
+    print(
+        f"Usage: {sys.argv[0]} <interval_seconds> <count> <command> [args...]",
+        file=sys.stderr,
+    )
     sys.exit(1)
 
-ignore_exit_code = False
-if os.path.basename(sys.argv[0]) == "dodo-force":
-    ignore_exit_code = True
+ignore_exit_code = os.path.basename(sys.argv[0]) == "dodo-force"
 
 delay = Decimal(sys.argv[1])
 count = Decimal(sys.argv[2])
@@ -35,7 +38,7 @@ while True:
         _command.bake(_arg)
 
     if ignore_exit_code:
-        _command(_fg=True, _ok_code=list(range(256)))
+        _command(_fg=True, _ok_code=range(256))
     else:
         _command(_fg=True)
     time.sleep(float(delay))
